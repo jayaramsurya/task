@@ -1,24 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Image from "../src/assets/img/aa.jpg"
 
 function App() {
+  const [select, setSelect] = useState(0);
+  const onClickExpand = i => setSelect(i)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      {
+        Array(3).fill(null).map((v, i) => {
+          const className = i == select ? "header selected" : "header"
+          return (
+            <>
+              <div className={className}>
+                <span className="title">Level {i + 1}</span>
+                <button className="icon"
+                  onClick={() => onClickExpand(i)}>
+                  {select === i ? '-' : '+'}
+                </button>
+              </div>
+              {select === i && <div className="card" style={{ display: 'flex' }}>
+                <ul>
+                  <li>Assembly and finishing factories</li>
+                  <li>Product Manufacturing units-cut & sew</li>
+                  <li>Vertically Integrated</li>
+                </ul>
+                <img src={Image} />
+              </div>}
+            </>
+          )
+        })
+      }
+
     </div>
   );
 }
